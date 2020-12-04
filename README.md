@@ -1,5 +1,5 @@
 ```
-$ git clone https://git.drupalcode.org/project/drupal.git --branch 7.69 --single-branch
+$ git clone https://git.drupalcode.org/project/drupal.git --branch 7.77 --single-branch
 
 $ cp -rf drupal/* . && \
   cp drupal/.editorconfig . && \
@@ -34,6 +34,6 @@ $ git apply patches/2789723-1.patch && \
 
 $ git add *
 $ git status
-$ git commit -m 'Hardened 7.69 core.'
+$ git commit -m 'Hardened 7.77 core.'
 $ git push -u origin feature/1
 ```
