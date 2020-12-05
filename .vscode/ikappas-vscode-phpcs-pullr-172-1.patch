@@ -1,0 +1,66 @@
+diff --git a/out/src/configuration.js b/out/src/configuration.js
+index fe9361d..48c9dda 100644
+--- a/out/src/configuration.js
++++ b/out/src/configuration.js
+@@ -72,6 +72,7 @@ class PhpcsConfiguration extends vscode_1.Disposable {
+                     executablePath: config.get('executablePath'),
+                     composerJsonPath: config.get('composerJsonPath'),
+                     standard: config.get('standard'),
++                    extensions: config.get('extensions'),
+                     autoConfigSearch: config.get('autoConfigSearch'),
+                     showSources: config.get('showSources'),
+                     showWarnings: config.get('showWarnings'),
+@@ -114,4 +115,4 @@ class PhpcsConfiguration extends vscode_1.Disposable {
+     }
+ }
+ exports.PhpcsConfiguration = PhpcsConfiguration;
+-//# sourceMappingURL=configuration.js.map
+\ No newline at end of file
++//# sourceMappingURL=configuration.js.map
+diff --git a/package.json b/package.json
+index 2b6a0de..0012162 100644
+--- a/package.json
++++ b/package.json
+@@ -61,6 +61,16 @@
+ 					"default": null,
+ 					"description": "Optional. The name or path of the coding standard to use. Defaults to the one set in phpcs global config."
+ 				},
++				"phpcs.extensions": {
++					"scope": "resource",
++					"type": "array",
++					"items": {
++						"type": "string",
++						"title": "Valid extension to check"
++					},
++					"default": ["php", "inc"],
++					"description": "An array of valid file extensions that contain PHP code to lint"
++				},
+ 				"phpcs.autoConfigSearch": {
+ 					"scope": "resource",
+ 					"type": "boolean",
+@@ -135,4 +145,4 @@
+ 		"publisherId": "bc9cf215-ec5e-4767-8196-eb73d1ced313",
+ 		"publisherDisplayName": "Ioannis Kappas"
+ 	}
+-}
+\ No newline at end of file
++}
+diff --git a/server/src/linter.js b/server/src/linter.js
+index a8ec35a..7bbe2f3 100644
+--- a/server/src/linter.js
++++ b/server/src/linter.js
+@@ -98,6 +98,7 @@ class PhpcsLinter {
+             if (standard) {
+                 lintArgs.push(`--standard=${standard}`);
+             }
++            lintArgs.push(`--extensions=${settings.extensions.join(',')}`);
+             // Check if file should be ignored (Skip for in-memory documents)
+             if (filePath !== undefined && settings.ignorePatterns.length) {
+                 if (semver.gte(this.executableVersion, '3.0.0')) {
+@@ -265,4 +266,4 @@ class PhpcsLinter {
+     }
+ }
+ exports.PhpcsLinter = PhpcsLinter;
+-//# sourceMappingURL=linter.js.map
+\ No newline at end of file
++//# sourceMappingURL=linter.js.map
