@@ -10,7 +10,7 @@ git checkout -b feature/xx
 ```
 $ git clone https://git.drupalcode.org/project/drupal.git --branch 7.xx --single-branch
 ```
-### Copy the needed files into our d7core repo's root level
+### Copy the new code into the root level of d7core's repo
 ```
 $ cp -rf drupal/* . && \
   cp drupal/.editorconfig . && \
