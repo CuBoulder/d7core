@@ -317,7 +317,7 @@ define('MENU_PREFERRED_LINK', '1cf698d64d1aa4b83907cf6ed55db3a7f8e92c91');
  * actually exists. This list of 'masks' is built in menu_rebuild().
  *
  * @param $parts
- *   An array of path parts; for the above example, 
+ *   An array of path parts; for the above example,
  *   array('node', '12345', 'edit').
  *
  * @return
@@ -508,6 +508,7 @@ function menu_get_item($path = NULL, $router_item = NULL) {
  *   the result to the caller (FALSE).
  */
 function menu_execute_active_handler($path = NULL, $deliver = TRUE) {
+  echo "<h3>In menu_execute_active_handler()</h3>";
   // Check if site is offline.
   $page_callback_result = _menu_site_is_offline() ? MENU_SITE_OFFLINE : MENU_SITE_ONLINE;
 

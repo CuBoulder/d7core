@@ -5,8 +5,10 @@ ini_set('display_startup_errors', TRUE);
 
 echo "POST REQUEST:<br>";
 print_R($_POST);
+echo "<br>";
 echo "GET REQUEST:<br>";
 print_R($_GET);
+echo "<br>";
 /**
  * @file
  * The PHP page that serves all page requests on a Drupal installation.
