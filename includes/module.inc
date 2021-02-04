@@ -1056,7 +1056,7 @@ function drupal_required_modules() {
  *   to drupal_alter().
  */
 function drupal_alter($type, &$data, &$context1 = NULL, &$context2 = NULL, &$context3 = NULL) {
-  echo "<h3>Inside drupal_alter()</h3>";
+  if ($type === 'menu_site_status') echo "<h3>Inside drupal_alter()</h3>";
   // Use the advanced drupal_static() pattern, since this is called very often.
   static $drupal_static_fast;
   if (!isset($drupal_static_fast)) {
