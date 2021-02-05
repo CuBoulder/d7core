@@ -7,9 +7,9 @@ ini_set('display_startup_errors', TRUE);
 <div style="border: solid black 2px; padding: 16px">
     <h2>Inside Index.php file</h2>
     <h3>POST REQUEST:</h3>
-    <?php print_r($_POST); ?>
+    <pre><?php print_r($_POST); ?><pre>
     <h3>GET REQUEST:</h3>
-    <?php print_r($_GET); ?>
+    <pre><?php print_r($_GET); ?></pre>
 </div>
 /**
  * @file
