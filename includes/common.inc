@@ -2643,18 +2643,20 @@ function drupal_deliver_page($page_callback_result, $default_delivery_callback =
     $default_delivery_callback = $router_item['delivery_callback'];
   }
   $delivery_callback = !empty($default_delivery_callback) ? $default_delivery_callback : 'drupal_deliver_html_page';
-  echo "<li>delivery_callback => $delivery_callback</li></ul>";
+  echo "<li>delivery_callback => $delivery_callback</li>";
   // Give modules a chance to alter the delivery callback used, based on
   // request-time context (e.g., HTTP request headers).
   drupal_alter('page_delivery_callback', $delivery_callback);
   if (function_exists($delivery_callback)) {
     $delivery_callback($page_callback_result);
+    echo "<li>inside if (function_exists(deliver_callback)</li><li>calling $delivery_callback($page_callback_result)</li>>/ul>";
   }
   else {
     // If a delivery callback is specified, but doesn't exist as a function,
     // something is wrong, but don't print anything, since it's not known
     // what format the response needs to be in.
     watchdog('delivery callback not found', 'callback %callback not found: %q.', array('%callback' => $delivery_callback, '%q' => $_GET['q']), WATCHDOG_ERROR);
+    echo "<li>inside watchdog error log entry</li></ul>";
   }
 }
 
