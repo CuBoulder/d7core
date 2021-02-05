@@ -2,13 +2,15 @@
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
+?>
 
-echo "POST REQUEST:<br>";
-print_R($_POST);
-echo "<br>";
-echo "GET REQUEST:<br>";
-print_R($_GET);
-echo "<br>";
+<div style="border: solid black 2px; padding: 16px">
+    <h2>Inside Index.php file</h2>
+    <h3>POST REQUEST:</h3>
+    <?php print_r($_POST); ?>
+    <h3>GET REQUEST:</h3>
+    <?php print_r($_GET); ?>
+</div>
 /**
  * @file
  * The PHP page that serves all page requests on a Drupal installation.
@@ -23,8 +25,10 @@ echo "<br>";
 /**
  * Root directory of Drupal installation.
  */
+<?php
 define('DRUPAL_ROOT', getcwd());
 
 require_once DRUPAL_ROOT . '/includes/bootstrap.inc';
 drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
 menu_execute_active_handler();
+?>

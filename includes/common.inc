@@ -2638,10 +2638,12 @@ function l($text, $path, array $options = array()) {
  */
 function drupal_deliver_page($page_callback_result, $default_delivery_callback = NULL) {
   echo "<h3>Inside drupal_deliver_page()<h3>";
+  echo "<p>page_callback_result => $page_callback_result</p>";
   if (!isset($default_delivery_callback) && ($router_item = menu_get_item())) {
     $default_delivery_callback = $router_item['delivery_callback'];
   }
   $delivery_callback = !empty($default_delivery_callback) ? $default_delivery_callback : 'drupal_deliver_html_page';
+  echo "<p>default_delivery_callback => $default_delivery_callback</p>";
   // Give modules a chance to alter the delivery callback used, based on
   // request-time context (e.g., HTTP request headers).
   drupal_alter('page_delivery_callback', $delivery_callback);
