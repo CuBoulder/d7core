@@ -2637,7 +2637,7 @@ function l($text, $path, array $options = array()) {
  * @see hook_page_delivery_callback_alter()
  */
 function drupal_deliver_page($page_callback_result, $default_delivery_callback = NULL) {
-  echo "<h3>Inside drupal_deliver_page()<h3>";
+  echo "<h3>Inside drupal_deliver_page()</h3>";
   echo "<ul><li>page_callback_result =>".print_r($page_callback_result)."</li>";
   if (!isset($default_delivery_callback) && ($router_item = menu_get_item())) {
     $default_delivery_callback = $router_item['delivery_callback'];
