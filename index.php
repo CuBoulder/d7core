@@ -8,7 +8,7 @@ ini_set('display_startup_errors', TRUE);
     <h2>Inside Index.php file</h2>
     <h3>POST REQUEST:</h3>
     <pre><?php print_r($_POST); ?><pre>
-    <h3>GET REQUEST:</h3>
+    <h2>GET REQUEST:</h2>
     <pre><?php print_r($_GET); ?></pre>
 </div>
 /**
