@@ -13,7 +13,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: run commands
         run: |
-          echo ${{ toJson(github) }}
           git checkout -b features/${{github.event.issue.title}}
           git clone https://git.drupalcode.org/project/drupal.git --branch ${{github.event.issue.title}} --single-branch
           echo "Copying new Drupal Core files..."
