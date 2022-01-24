@@ -43,9 +43,9 @@ jobs:
           rm -rfv modules/trigger \
           rm -rfv drupal
           echo "Applying patches..."
-          git apply patches/2789723-1.patch
-          git apply patches/d7-require-tld-for-mailto-links-2016739-76.patch
-          git apply patches/watchdog_pending_updates.patch
+          git apply -v patches/2789723-1.patch
+          git apply -v patches/d7-require-tld-for-mailto-links-2016739-76.patch
+          git apply -v patches/watchdog_pending_updates.patch
           git add *
           git status
           git commit -m 'Hardened ${{github.event.issue.title}} core.'
