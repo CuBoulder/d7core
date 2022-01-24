@@ -2,7 +2,7 @@
 name: Update Drupal Core
 about: Updates Drupal 7 to most recent release.
 title: ''
-labels: Update Drupal Core
+labels: ''
 assignees: ''
 
 ---
