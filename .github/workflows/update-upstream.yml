@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: run commands
         run: |
           git checkout -b features/${{github.event.issue.title}}
           git clone https://git.drupalcode.org/project/drupal.git --branch ${{github.event.issue.title}} --single-branch
