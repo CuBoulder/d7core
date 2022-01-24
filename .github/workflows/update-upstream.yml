@@ -7,46 +7,47 @@ on:
 
 jobs:
   UpdateToLatestReleaseIfLabelMatches:
-    if: github.event.label.name == "Update Drupal Core"
+    if: ${{github.event.label.name == "Update Drupal Core"}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: run commands
         run: |
-          git checkout -b features/${{github.event.issue.title}}
-          git clone https://git.drupalcode.org/project/drupal.git --branch ${{github.event.issue.title}} --single-branch
-          echo "Copying new Drupal Core files..."
-          cp -v -rf drupal/* .
-          cp -v drupal/.editorconfig .
-          cp -v drupal/.gitignore .
-          cp -v drupal/.htaccess .
-          echo "Removing unused code..."
-          rm -rfv web.config
-          rm -rfv modules/php \
-          rm -rfv modules/aggregator \
-          rm -rfv modules/blog \
-          rm -rfv modules/book \
-          rm -rfv modules/color \
-          rm -rfv modules/contact \
-          rm -rfv modules/translation \
-          rm -rfv modules/dashboard \
-          rm -rfv modules/forum \
-          rm -rfv modules/locale \
-          rm -rfv modules/openid \
-          rm -rfv modules/overlay \
-          rm -rfv modules/poll \
-          rm -rfv modules/rdf \
-          rm -rfv modules/search \
-          rm -rfv modules/statistics\
-          rm -rfv modules/toolbar \
-          rm -rfv modules/tracker \
-          rm -rfv modules/trigger \
-          rm -rfv drupal
-          echo "Applying patches..."
-          git apply patches/2789723-1.patch
-          git apply patches/d7-require-tld-for-mailto-links-2016739-76.patch
-          git apply patches/watchdog_pending_updates.patch
-          git add *
-          git status
-          git commit -m 'Hardened ${{github.event.issue.title}} core.'
-          git push -u origin feature/${{github.event.issue.title}}
+          echo ${{ toJson(github) }}
+          # git checkout -b features/${{github.event.issue.title}}
+          # git clone https://git.drupalcode.org/project/drupal.git --branch ${{github.event.issue.title}} --single-branch
+          # echo "Copying new Drupal Core files..."
+          # cp -v -rf drupal/* .
+          # cp -v drupal/.editorconfig .
+          # cp -v drupal/.gitignore .
+          # cp -v drupal/.htaccess .
+          # echo "Removing unused code..."
+          # rm -rfv web.config
+          # rm -rfv modules/php \
+          # rm -rfv modules/aggregator \
+          # rm -rfv modules/blog \
+          # rm -rfv modules/book \
+          # rm -rfv modules/color \
+          # rm -rfv modules/contact \
+          # rm -rfv modules/translation \
+          # rm -rfv modules/dashboard \
+          # rm -rfv modules/forum \
+          # rm -rfv modules/locale \
+          # rm -rfv modules/openid \
+          # rm -rfv modules/overlay \
+          # rm -rfv modules/poll \
+          # rm -rfv modules/rdf \
+          # rm -rfv modules/search \
+          # rm -rfv modules/statistics\
+          # rm -rfv modules/toolbar \
+          # rm -rfv modules/tracker \
+          # rm -rfv modules/trigger \
+          # rm -rfv drupal
+          # echo "Applying patches..."
+          # git apply patches/2789723-1.patch
+          # git apply patches/d7-require-tld-for-mailto-links-2016739-76.patch
+          # git apply patches/watchdog_pending_updates.patch
+          # git add *
+          # git status
+          # git commit -m 'Hardened ${{github.event.issue.title}} core.'
+          # git push -u origin feature/${{github.event.issue.title}}
