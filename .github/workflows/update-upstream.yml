@@ -7,7 +7,7 @@ on:
 
 jobs:
   UpdateToLatestReleaseIfLabelMatches:
-    if: ${{github.event.label.name == "Update Drupal Core"}}
+    if: ${{github.event.label.name == 'Update Drupal Core'}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
