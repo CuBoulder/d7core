@@ -785,7 +785,7 @@ function check_markup($text, $format_id = NULL, $langcode = '', $cache = FALSE) 
 
   // Convert all Windows and Mac newlines to a single newline, so filters only
   // need to deal with one possibility.
-  $text = str_replace(array("\r\n", "\r"), "\n", $text);
+  $text = str_replace(array("\r\n", "\r"), "\n", (string) $text);
 
   // Get a complete list of filters, ordered properly.
   $filters = filter_list_format($format->format);
@@ -1497,11 +1497,7 @@ function _filter_url($text, $filter) {
   $tasks['_filter_url_parse_full_links'] = $pattern;
 
   // Match e-mail addresses.
-  // Mail domain pattern differs from the general domain pattern by requiring
-  // a TLD match. This allows patterns like foo@bar in text without
-  // being converted to a mailto link.
-  $email_domain = '(?:[A-Za-z0-9._+-]+\.)+[A-Za-z]{2,64}\b';
-  $url_pattern = "[A-Za-z0-9._+-]{1,254}@(?:$email_domain)";
+  $url_pattern = "[A-Za-z0-9._+-]{1,254}@(?:$domain)";
   $pattern = "`($url_pattern)`";
   $tasks['_filter_url_parse_email_links'] = $pattern;
 
@@ -1665,7 +1661,7 @@ function _filter_url_trim($text, $length = NULL) {
   }
 
   // Use +3 for '...' string length.
-  if ($_length && strlen($text) > $_length + 3) {
+  if ($_length && strlen((string) $text) > $_length + 3) {
     $text = substr($text, 0, $_length) . '...';
   }
 

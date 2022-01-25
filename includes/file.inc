@@ -197,7 +197,7 @@ function file_stream_wrapper_get_class($scheme) {
  * @see file_uri_target()
  */
 function file_uri_scheme($uri) {
-  $position = strpos($uri, '://');
+  $position = strpos((string) $uri, '://');
   return $position ? substr($uri, 0, $position) : FALSE;
 }
 
@@ -437,8 +437,8 @@ function file_prepare_directory(&$directory, $options = FILE_MODIFY_PERMISSIONS)
 
   // Check if directory exists.
   if (!is_dir($directory)) {
-    // Let mkdir() recursively create directories and use the default directory
-    // permissions.
+    // Let drupal_mkdir() recursively create directories and use the default
+    // directory permissions.
     if ($options & FILE_CREATE_DIRECTORY) {
       return @drupal_mkdir($directory, NULL, TRUE);
     }
@@ -2520,20 +2520,36 @@ function drupal_mkdir($uri, $mode = NULL, $recursive = FALSE, $context = NULL) {
   // If recursive, create each missing component of the parent directory
   // individually and set the mode explicitly to override the umask.
   if ($recursive) {
-    // Ensure the path is using DIRECTORY_SEPARATOR.
-    $uri = str_replace('/', DIRECTORY_SEPARATOR, $uri);
+    // Ensure the path is using DIRECTORY_SEPARATOR, and trim off any trailing
+    // slashes because they can throw off the loop when creating the parent
+    // directories.
+    $uri = rtrim(str_replace('/', DIRECTORY_SEPARATOR, $uri), DIRECTORY_SEPARATOR);
     // Determine the components of the path.
     $components = explode(DIRECTORY_SEPARATOR, $uri);
+    // If the filepath is absolute the first component will be empty as there
+    // will be nothing before the first slash.
+    if ($components[0] == '') {
+      $recursive_path = DIRECTORY_SEPARATOR;
+      // Get rid of the empty first component.
+      array_shift($components);
+    }
+    else {
+      $recursive_path = '';
+    }
+    // Don't handle the top-level directory in this loop.
     array_pop($components);
-    $recursive_path = '';
+    // Create each component if necessary.
     foreach ($components as $component) {
       $recursive_path .= $component;
 
       if (!file_exists($recursive_path)) {
-        if (!_drupal_mkdir_call($recursive_path, $mode, FALSE, $context)) {
+        $success = _drupal_mkdir_call($recursive_path, $mode, FALSE, $context);
+        // If the operation failed, check again if the directory was created
+        // by another process/server, only report a failure if not.
+        if (!$success && !file_exists($recursive_path)) {
           return FALSE;
         }
-        // Not necessary to use drupal_chmod() as there is no scheme.
+        // Not necessary to use self::chmod() as there is no scheme.
         if (!chmod($recursive_path, $mode)) {
           return FALSE;
         }
